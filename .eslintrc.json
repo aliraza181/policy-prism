@@ -1,0 +1,45 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "max-params": ["warn", 3],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["neo4j-driver"],
+            "message": "The neo4j-driver package must only be imported inside src/infra/neo4j/ - domain and app code depend on repository interfaces, never the driver directly."
+          },
+          {
+            "group": ["express"],
+            "message": "express must only be imported inside src/web/ - domain and app code must stay framework-independent."
+          }
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["src/infra/neo4j/**/*.ts"],
+      "rules": { "no-restricted-imports": "off" }
+    },
+    {
+      "files": ["src/web/**/*.ts"],
+      "rules": { "no-restricted-imports": "off" }
+    }
+  ],
+  "ignorePatterns": ["dist", "node_modules"]
+}
