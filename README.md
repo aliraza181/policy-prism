@@ -9,6 +9,12 @@ This service **reads** a Neo4j graph populated by a separate Python data
 pipeline (repo: `policyPrism`). The two projects share a database, not a
 codebase — this service never runs ingestion/extraction itself.
 
+**This is a backend-only repo.** The frontend (Policy Library UI) will
+live in its own separate repo, deployed independently, talking to this
+service only over HTTP — reinforcing the Clean Architecture principle
+that business rules stay independent of the UI. No monorepo/workspace
+setup here by design.
+
 ## Architecture
 
 Built to [Carbonteq's engineering standards](https://github.com/) (Clean
