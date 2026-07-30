@@ -1,12 +1,10 @@
 import { Result } from "../../shared/result.js";
-import type { ValidationError } from "../../shared/errors.js";
 import type { PolicyNotFoundError } from "../../domain/errors/policy.errors.js";
 import type { Policy } from "../../domain/entities/policy.entity.js";
 import type { PolicySection } from "../../domain/types/policy-section.js";
 import type { CoverageEdge } from "../../domain/types/coverage-edge.js";
 import type { PolicyRepository } from "../../domain/repositories/policy.repository.js";
-import { getPolicyDetailSchema } from "../dtos/get-policy-detail.dto.js";
-import { validate } from "../validate.js";
+import type { GetPolicyDetailDto } from "../dtos/get-policy-detail.dto.js";
 
 export interface PolicyDetail {
   policy: Policy;
@@ -17,15 +15,8 @@ export interface PolicyDetail {
 export class GetPolicyDetailUseCase {
   constructor(private readonly policies: PolicyRepository) {}
 
-  async execute(
-    input: unknown,
-  ): Promise<Result<PolicyDetail, ValidationError | PolicyNotFoundError>> {
-    const validated = validate(getPolicyDetailSchema, input);
-    if (validated.isErr) {
-      return Result.err(validated.error);
-    }
-
-    const { policyId } = validated.value;
+  async execute(input: GetPolicyDetailDto): Promise<Result<PolicyDetail, PolicyNotFoundError>> {
+    const { policyId } = input;
     const policyResult = await this.policies.findById(policyId);
     if (policyResult.isErr) {
       return Result.err(policyResult.error);

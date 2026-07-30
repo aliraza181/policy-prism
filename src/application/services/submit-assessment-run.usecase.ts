@@ -1,19 +1,12 @@
 import { Result } from "../../shared/result.js";
-import type { ValidationError } from "../../shared/errors.js";
 import type { AssessmentRunSubmission, PolicyPipelineService } from "../../domain/ports/policy-pipeline-service.js";
-import { submitAssessmentRunSchema } from "../dtos/submit-assessment-run.dto.js";
-import { validate } from "../validate.js";
+import type { SubmitAssessmentRunDto } from "../dtos/submit-assessment-run.dto.js";
 
 export class SubmitAssessmentRunUseCase {
   constructor(private readonly pipeline: PolicyPipelineService) {}
 
-  async execute(input: unknown): Promise<Result<AssessmentRunSubmission, ValidationError>> {
-    const validated = validate(submitAssessmentRunSchema, input);
-    if (validated.isErr) {
-      return Result.err(validated.error);
-    }
-
-    const { hospitalProfileId, instrument, department, purpose } = validated.value;
+  async execute(input: SubmitAssessmentRunDto): Promise<Result<AssessmentRunSubmission, never>> {
+    const { hospitalProfileId, instrument, department, purpose } = input;
     const result = await this.pipeline.submitAssessmentRun(hospitalProfileId, {
       instrument,
       department,

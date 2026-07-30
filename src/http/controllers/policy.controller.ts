@@ -4,6 +4,9 @@ import type { UploadPolicyUseCase } from "../../application/services/upload-poli
 import type { GetJobStatusUseCase } from "../../application/services/get-job-status.usecase.js";
 import type { ListPoliciesUseCase } from "../../application/services/list-policies.usecase.js";
 import type { GetPolicyDetailUseCase } from "../../application/services/get-policy-detail.usecase.js";
+import type { UploadPolicyDto } from "../../application/dtos/upload-policy.dto.js";
+import type { GetJobStatusDto } from "../../application/dtos/get-job-status.dto.js";
+import type { GetPolicyDetailDto } from "../../application/dtos/get-policy-detail.dto.js";
 import { sendResult } from "../result-to-response.js";
 
 export class PolicyController {
@@ -15,29 +18,14 @@ export class PolicyController {
   ) {}
 
   uploadHandler = async (req: Request, res: Response): Promise<void> => {
-    const file = req.file;
-    if (!file) {
-      res.status(400).json({ error: "validation_error", message: "file is required" });
-      return;
-    }
-
-    const body = req.body as { sourceUri?: unknown };
-    const sourceUri = typeof body.sourceUri === "string" ? body.sourceUri : undefined;
-
-    const result = await this.uploadPolicy.execute(
-      {
-        fileName: file.originalname,
-        contentType: file.mimetype,
-        sizeBytes: file.size,
-        sourceUri,
-      },
-      file.buffer,
-    );
+    const input = res.locals.validated as UploadPolicyDto;
+    const result = await this.uploadPolicy.execute(input, req.file!.buffer);
     sendResult(res, result);
   };
 
-  getJobStatusHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.getJobStatus.execute({ jobId: req.params.jobId });
+  getJobStatusHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as GetJobStatusDto;
+    const result = await this.getJobStatus.execute(input);
     sendResult(res, result);
   };
 
@@ -46,8 +34,9 @@ export class PolicyController {
     res.status(200).json(policies);
   };
 
-  getPolicyDetailHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.getPolicyDetail.execute({ policyId: req.params.policyId });
+  getPolicyDetailHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as GetPolicyDetailDto;
+    const result = await this.getPolicyDetail.execute(input);
     sendResult(res, result);
   };
 }

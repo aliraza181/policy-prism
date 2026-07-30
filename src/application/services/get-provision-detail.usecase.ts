@@ -1,13 +1,11 @@
 import { Result } from "../../shared/result.js";
-import type { ValidationError } from "../../shared/errors.js";
 import type { ProvisionRepository } from "../../domain/repositories/provision.repository.js";
 import type { ProvisionNotFoundError } from "../../domain/errors/provision.errors.js";
 import type { NormativeStatementRepository } from "../../domain/repositories/normative-statement.repository.js";
 import type { Provision } from "../../domain/entities/provision.entity.js";
 import type { NormativeStatement } from "../../domain/entities/normative-statement.entity.js";
 import type { ProvisionReference } from "../../domain/types/provision-reference.js";
-import { getProvisionDetailSchema } from "../dtos/get-provision-detail.dto.js";
-import { validate } from "../validate.js";
+import type { GetProvisionDetailDto } from "../dtos/get-provision-detail.dto.js";
 
 export interface ProvisionDetail {
   provision: Provision;
@@ -23,15 +21,8 @@ export class GetProvisionDetailUseCase {
     private readonly normativeStatements: NormativeStatementRepository,
   ) {}
 
-  async execute(
-    input: unknown,
-  ): Promise<Result<ProvisionDetail, ValidationError | ProvisionNotFoundError>> {
-    const validated = validate(getProvisionDetailSchema, input);
-    if (validated.isErr) {
-      return Result.err(validated.error);
-    }
-
-    const { provisionId } = validated.value;
+  async execute(input: GetProvisionDetailDto): Promise<Result<ProvisionDetail, ProvisionNotFoundError>> {
+    const { provisionId } = input;
     const found = await this.provisions.findById(provisionId);
     if (found.isErr) {
       return Result.err(found.error);

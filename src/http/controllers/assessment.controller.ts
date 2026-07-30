@@ -3,6 +3,9 @@ import type { Request, Response } from "express";
 import type { SubmitAssessmentRunUseCase } from "../../application/services/submit-assessment-run.usecase.js";
 import type { GetRunUseCase } from "../../application/services/get-run.usecase.js";
 import type { ListGapsUseCase } from "../../application/services/list-gaps.usecase.js";
+import type { SubmitAssessmentRunDto } from "../../application/dtos/submit-assessment-run.dto.js";
+import type { GetRunDto } from "../../application/dtos/get-run.dto.js";
+import type { ListGapsDto } from "../../application/dtos/list-gaps.dto.js";
 import { sendResult } from "../result-to-response.js";
 
 export class AssessmentController {
@@ -12,22 +15,21 @@ export class AssessmentController {
     private readonly listGaps: ListGapsUseCase,
   ) {}
 
-  submitRunHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.submitAssessmentRun.execute(req.body);
+  submitRunHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as SubmitAssessmentRunDto;
+    const result = await this.submitAssessmentRun.execute(input);
     sendResult(res, result);
   };
 
-  getRunHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.getRun.execute({ runId: req.params.runId });
+  getRunHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as GetRunDto;
+    const result = await this.getRun.execute(input);
     sendResult(res, result);
   };
 
-  listGapsHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.listGaps.execute({
-      runId: req.params.runId,
-      gapType: req.query.gapType,
-      tier1CriticalOnly: req.query.tier1CriticalOnly === "true" ? true : undefined,
-    });
+  listGapsHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as ListGapsDto;
+    const result = await this.listGaps.execute(input);
     sendResult(res, result);
   };
 }

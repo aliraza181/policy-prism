@@ -7,6 +7,11 @@ import type { SearchCatalogueUseCase } from "../../application/services/search-c
 import type { GetFacetsUseCase } from "../../application/services/get-facets.usecase.js";
 import type { ListProvisionsUseCase } from "../../application/services/list-provisions.usecase.js";
 import type { SemanticSearchProvisionsUseCase } from "../../application/services/semantic-search-provisions.usecase.js";
+import type { BrowseProvisionTreeDto } from "../../application/dtos/browse-provision-tree.dto.js";
+import type { GetProvisionDetailDto } from "../../application/dtos/get-provision-detail.dto.js";
+import type { SearchCatalogueDto } from "../../application/dtos/search-catalogue.dto.js";
+import type { ListProvisionsDto } from "../../application/dtos/list-provisions.dto.js";
+import type { SemanticSearchDto } from "../../application/dtos/semantic-search.dto.js";
 import { sendResult } from "../result-to-response.js";
 
 export class CatalogueController {
@@ -25,24 +30,21 @@ export class CatalogueController {
     res.status(200).json(instruments);
   };
 
-  browseProvisionTreeHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.browseProvisionTree.execute({
-      instrumentRef: req.params.instrumentRef,
-      parentProvisionId: req.query.parentId,
-    });
+  browseProvisionTreeHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as BrowseProvisionTreeDto;
+    const result = await this.browseProvisionTree.execute(input);
     sendResult(res, result);
   };
 
-  getProvisionDetailHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.getProvisionDetail.execute({ provisionId: req.params.provisionId });
+  getProvisionDetailHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as GetProvisionDetailDto;
+    const result = await this.getProvisionDetail.execute(input);
     sendResult(res, result);
   };
 
-  searchCatalogueHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.searchCatalogue.execute({
-      keyword: req.query.keyword,
-      instrumentRef: req.query.instrumentRef,
-    });
+  searchCatalogueHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as SearchCatalogueDto;
+    const result = await this.searchCatalogue.execute(input);
     sendResult(res, result);
   };
 
@@ -51,13 +53,15 @@ export class CatalogueController {
     res.status(200).json(facets);
   };
 
-  listProvisionsHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.listProvisions.execute(req.query);
+  listProvisionsHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as ListProvisionsDto;
+    const result = await this.listProvisions.execute(input);
     sendResult(res, result);
   };
 
-  semanticSearchHandler = async (req: Request, res: Response): Promise<void> => {
-    const result = await this.semanticSearchProvisions.execute(req.query);
+  semanticSearchHandler = async (_req: Request, res: Response): Promise<void> => {
+    const input = res.locals.validated as SemanticSearchDto;
+    const result = await this.semanticSearchProvisions.execute(input);
     sendResult(res, result);
   };
 }
