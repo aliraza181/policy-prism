@@ -22,11 +22,11 @@
         "patterns": [
           {
             "group": ["neo4j-driver"],
-            "message": "The neo4j-driver package must only be imported inside src/infra/neo4j/ - domain and app code depend on repository interfaces, never the driver directly."
+            "message": "The neo4j-driver package must only be imported inside src/infrastructure/repositories/ or src/infrastructure/database/ - domain and app code depend on repository interfaces, never the driver directly."
           },
           {
             "group": ["express"],
-            "message": "express must only be imported inside src/web/ - domain and app code must stay framework-independent."
+            "message": "express must only be imported inside src/http/ - domain and app code must stay framework-independent."
           }
         ]
       }
@@ -34,11 +34,11 @@
   },
   "overrides": [
     {
-      "files": ["src/infra/neo4j/**/*.ts"],
+      "files": ["src/infrastructure/repositories/**/*.ts", "src/infrastructure/database/**/*.ts"],
       "rules": { "no-restricted-imports": "off" }
     },
     {
-      "files": ["src/web/**/*.ts"],
+      "files": ["src/http/**/*.ts"],
       "rules": { "no-restricted-imports": "off" }
     }
   ],

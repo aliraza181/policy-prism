@@ -17,19 +17,25 @@ It **reads** a Neo4j graph populated by a separate Python pipeline (repo:
 
 ```
 src/
-├── domain/      # Entities, Value Objects, repository INTERFACES, domain services
-├── app/         # Use-cases (Application Services), Results, DTOs
-├── infra/       # Adapters: Neo4j repos, config, logger - implements domain/app ports
-└── web/         # HTTP transport only - routes/controllers, no business logic
+├── shared/          # Result<T,E>, base error types - the framework-free kernel every layer can import
+├── domain/          # entities/, errors/, repositories/ (interfaces), ports/ (interfaces), services/ (pure logic), types/
+├── application/      # services/ (use-cases), dtos/ (Zod schema + inferred type), validate.ts
+├── infrastructure/   # repositories/ (Neo4j), external-services/ (HTTP proxies), database/, config/, logging/
+└── http/             # routes/, controllers/, middleware/, app.ts - transport only, no business logic
 ```
 
-See the README in each `src/*` folder for that layer's specific rules.
+Each layer folder is organized **by technical role, not by feature slice**
+(e.g. all entities in `domain/entities/`, not `domain/provision/provision.entity.ts`) -
+a deliberate flat-by-type layout. Filenames stay unique across the whole tree
+so this never collides. See the README in each `src/*` folder for that
+layer's specific rules.
 
 ## Non-negotiables (enforced by ESLint, not just convention)
 
-- `neo4j-driver` is imported **only** inside `src/infra/neo4j/`.
-- `express` is imported **only** inside `src/web/`.
-- `domain/` never imports from `app/`, `infra/`, or `web/`.
+- `neo4j-driver` is imported **only** inside `src/infrastructure/repositories/`
+  and `src/infrastructure/database/`.
+- `express` is imported **only** inside `src/http/`.
+- `domain/` never imports from `application/`, `infrastructure/`, or `http/`.
 - Expected failures (not found, validation error, already exists) are
   returned as `Result.err(...)`, never thrown.
 

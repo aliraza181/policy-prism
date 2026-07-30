@@ -8,9 +8,9 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "tsx watch --env-file=.env src/web/server.ts",
+    "dev": "tsx watch --env-file=.env src/server.ts",
     "build": "tsc -p tsconfig.json",
-    "start": "node --env-file=.env dist/web/server.js",
+    "start": "node --env-file=.env dist/server.js",
     "seed:hospital-profile": "tsx --env-file=.env src/scripts/seed-hospital-profile.ts",
     "test": "vitest run",
     "test:watch": "vitest",

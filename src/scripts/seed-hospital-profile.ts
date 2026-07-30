@@ -1,9 +1,9 @@
-import { loadConfig } from "../infra/config/config.js";
-import { ConsoleLogger } from "../infra/logger/console-logger.js";
-import { createDriver, verifyConnectivity } from "../infra/neo4j/driver.js";
-import { Neo4jHospitalProfileRepository } from "../infra/neo4j/neo4j-hospital-profile.repository.js";
-import { HospitalProfile } from "../domain/hospital-profile/hospital-profile.entity.js";
-import type { Facility, ProfileFact } from "../domain/hospital-profile/hospital-profile.entity.js";
+import { loadConfig } from "../infrastructure/config/config.js";
+import { ConsoleLogger } from "../infrastructure/logging/console-logger.js";
+import { createDriver, verifyConnectivity } from "../infrastructure/database/driver.js";
+import { Neo4jHospitalProfileRepository } from "../infrastructure/repositories/neo4j-hospital-profile.repository.js";
+import { HospitalProfile } from "../domain/entities/hospital-profile.entity.js";
+import type { Facility, ProfileFact } from "../domain/entities/hospital-profile.entity.js";
 
 const FACILITIES: Facility[] = [
   {
