@@ -1,6 +1,6 @@
 import { Result } from "../../shared/result.js";
 import type { AssessmentRunSubmission, PolicyPipelineService } from "../../domain/ports/policy-pipeline-service.js";
-import type { SubmitAssessmentRunDto } from "../dtos/submit-assessment-run.dto.js";
+import type { SubmitAssessmentRunDto } from "../../domain/types/submit-assessment-run.js";
 
 export class SubmitAssessmentRunUseCase {
   constructor(private readonly pipeline: PolicyPipelineService) {}

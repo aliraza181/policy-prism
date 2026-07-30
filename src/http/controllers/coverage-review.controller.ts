@@ -2,8 +2,8 @@ import type { Request, Response } from "express";
 
 import type { GetObligationCoverageUseCase } from "../../application/services/get-obligation-coverage.usecase.js";
 import type { SubmitCoverageReviewUseCase } from "../../application/services/submit-coverage-review.usecase.js";
-import type { GetObligationCoverageDto } from "../../application/dtos/get-obligation-coverage.dto.js";
-import type { SubmitCoverageReviewDto } from "../../application/dtos/submit-coverage-review.dto.js";
+import type { GetObligationCoverageDto } from "../../domain/types/get-obligation-coverage.js";
+import type { SubmitCoverageReviewDto } from "../../domain/types/submit-coverage-review.js";
 import { sendResult } from "../result-to-response.js";
 
 export class CoverageReviewController {
@@ -13,13 +13,21 @@ export class CoverageReviewController {
   ) {}
 
   getObligationCoverageHandler = async (_req: Request, res: Response): Promise<void> => {
-    const input = res.locals.validated as GetObligationCoverageDto;
+    const validated = res.locals.validatedBody as GetObligationCoverageDto;
+    const input: GetObligationCoverageDto = { normativeStatementId: validated.normativeStatementId };
     const result = await this.getObligationCoverage.execute(input);
     sendResult(res, result);
   };
 
   submitReviewHandler = async (_req: Request, res: Response): Promise<void> => {
-    const input = res.locals.validated as SubmitCoverageReviewDto;
+    const validated = res.locals.validatedBody as SubmitCoverageReviewDto;
+    const input: SubmitCoverageReviewDto = {
+      edgeId: validated.edgeId,
+      verdict: validated.verdict,
+      reasonCategory: validated.reasonCategory,
+      note: validated.note,
+      reviewerName: validated.reviewerName,
+    };
     const result = await this.submitCoverageReview.execute(input);
     sendResult(res, result);
   };

@@ -6,6 +6,8 @@ export interface RegulatoryInstrumentProps {
   jurisdiction: string;
 }
 
+export type PublicRegulatoryInstrument = RegulatoryInstrumentProps;
+
 export class RegulatoryInstrument {
   private constructor(private readonly props: RegulatoryInstrumentProps) {}
 
@@ -29,6 +31,10 @@ export class RegulatoryInstrument {
   }
 
   toJSON(): RegulatoryInstrumentProps {
+    return { ...this.props };
+  }
+
+  toPublic(): PublicRegulatoryInstrument {
     return { ...this.props };
   }
 }

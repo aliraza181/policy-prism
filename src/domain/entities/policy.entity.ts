@@ -15,6 +15,8 @@ export interface PolicyProps {
   crossReferences: Array<Record<string, unknown>>;
 }
 
+export type PublicPolicy = PolicyProps;
+
 export class Policy {
   private constructor(private readonly props: PolicyProps) {}
 
@@ -80,6 +82,10 @@ export class Policy {
   }
 
   toJSON(): PolicyProps {
+    return { ...this.props };
+  }
+
+  toPublic(): PublicPolicy {
     return { ...this.props };
   }
 }

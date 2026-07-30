@@ -1,6 +1,6 @@
 import { Result } from "../../shared/result.js";
 import type { PolicyIntakeJobStatus, PolicyPipelineService } from "../../domain/ports/policy-pipeline-service.js";
-import type { GetJobStatusDto } from "../dtos/get-job-status.dto.js";
+import type { GetJobStatusDto } from "../../domain/types/get-job-status.js";
 
 export class GetJobStatusUseCase {
   constructor(private readonly pipeline: PolicyPipelineService) {}

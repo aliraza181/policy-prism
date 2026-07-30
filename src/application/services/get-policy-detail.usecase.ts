@@ -4,7 +4,7 @@ import type { Policy } from "../../domain/entities/policy.entity.js";
 import type { PolicySection } from "../../domain/types/policy-section.js";
 import type { CoverageEdge } from "../../domain/types/coverage-edge.js";
 import type { PolicyRepository } from "../../domain/repositories/policy.repository.js";
-import type { GetPolicyDetailDto } from "../dtos/get-policy-detail.dto.js";
+import type { GetPolicyDetailDto } from "../../domain/types/get-policy-detail.js";
 
 export interface PolicyDetail {
   policy: Policy;
@@ -18,7 +18,7 @@ export class GetPolicyDetailUseCase {
   async execute(input: GetPolicyDetailDto): Promise<Result<PolicyDetail, PolicyNotFoundError>> {
     const { policyId } = input;
     const policyResult = await this.policies.findById(policyId);
-    if (policyResult.isErr) {
+    if (!policyResult.success) {
       return Result.err(policyResult.error);
     }
 
@@ -27,6 +27,6 @@ export class GetPolicyDetailUseCase {
       this.policies.findCoverageEdges(policyId),
     ]);
 
-    return Result.ok({ policy: policyResult.value, sections, coverageEdges });
+    return Result.ok({ policy: policyResult.data, sections, coverageEdges });
   }
 }

@@ -3,11 +3,11 @@ import { Router } from "express";
 import type { CatalogueController } from "../controllers/catalogue.controller.js";
 import { asyncHandler } from "../middleware/async-handler.js";
 import { validate } from "../middleware/validate.js";
-import { browseProvisionTreeSchema } from "../../application/dtos/browse-provision-tree.dto.js";
-import { getProvisionDetailSchema } from "../../application/dtos/get-provision-detail.dto.js";
-import { searchCatalogueSchema } from "../../application/dtos/search-catalogue.dto.js";
-import { semanticSearchSchema } from "../../application/dtos/semantic-search.dto.js";
-import { listProvisionsSchema } from "../../application/dtos/list-provisions.dto.js";
+import { browseProvisionTreeSchema } from "../../domain/schemas/browse-provision-tree.schema.js";
+import { getProvisionDetailSchema } from "../../domain/schemas/get-provision-detail.schema.js";
+import { searchCatalogueSchema } from "../../domain/schemas/search-catalogue.schema.js";
+import { semanticSearchSchema } from "../../domain/schemas/semantic-search.schema.js";
+import { listProvisionsSchema } from "../../domain/schemas/list-provisions.schema.js";
 
 export function catalogueRouter(controller: CatalogueController): Router {
   const router = Router();

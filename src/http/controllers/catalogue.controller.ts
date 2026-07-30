@@ -7,11 +7,12 @@ import type { SearchCatalogueUseCase } from "../../application/services/search-c
 import type { GetFacetsUseCase } from "../../application/services/get-facets.usecase.js";
 import type { ListProvisionsUseCase } from "../../application/services/list-provisions.usecase.js";
 import type { SemanticSearchProvisionsUseCase } from "../../application/services/semantic-search-provisions.usecase.js";
-import type { BrowseProvisionTreeDto } from "../../application/dtos/browse-provision-tree.dto.js";
-import type { GetProvisionDetailDto } from "../../application/dtos/get-provision-detail.dto.js";
-import type { SearchCatalogueDto } from "../../application/dtos/search-catalogue.dto.js";
-import type { ListProvisionsDto } from "../../application/dtos/list-provisions.dto.js";
-import type { SemanticSearchDto } from "../../application/dtos/semantic-search.dto.js";
+import type { BrowseProvisionTreeDto } from "../../domain/types/browse-provision-tree.js";
+import type { GetProvisionDetailDto } from "../../domain/types/get-provision-detail.js";
+import type { SearchCatalogueDto } from "../../domain/types/search-catalogue.js";
+import type { ListProvisionsDto } from "../../domain/types/list-provisions.js";
+import type { SemanticSearchDto } from "../../domain/types/semantic-search.js";
+import { Result } from "../../shared/result.js";
 import { sendResult } from "../result-to-response.js";
 
 export class CatalogueController {
@@ -27,25 +28,45 @@ export class CatalogueController {
 
   listInstrumentsHandler = async (_req: Request, res: Response): Promise<void> => {
     const instruments = await this.listInstruments.execute();
-    res.status(200).json(instruments);
+    res.status(200).json(instruments.map((instrument) => instrument.toPublic()));
   };
 
   browseProvisionTreeHandler = async (_req: Request, res: Response): Promise<void> => {
-    const input = res.locals.validated as BrowseProvisionTreeDto;
+    const validated = res.locals.validatedBody as BrowseProvisionTreeDto;
+    const input: BrowseProvisionTreeDto = {
+      instrumentRef: validated.instrumentRef,
+      parentProvisionId: validated.parentProvisionId,
+    };
     const result = await this.browseProvisionTree.execute(input);
-    sendResult(res, result);
+    sendResult(res, result.success ? Result.ok(result.data.map((provision) => provision.toPublic())) : result);
   };
 
   getProvisionDetailHandler = async (_req: Request, res: Response): Promise<void> => {
-    const input = res.locals.validated as GetProvisionDetailDto;
+    const validated = res.locals.validatedBody as GetProvisionDetailDto;
+    const input: GetProvisionDetailDto = { provisionId: validated.provisionId };
     const result = await this.getProvisionDetail.execute(input);
-    sendResult(res, result);
+    sendResult(
+      res,
+      result.success
+        ? Result.ok({
+            provision: result.data.provision.toPublic(),
+            parentChain: result.data.parentChain.map((provision) => provision.toPublic()),
+            normativeStatements: result.data.normativeStatements.map((statement) => statement.toPublic()),
+            references: result.data.references,
+            referencedBy: result.data.referencedBy,
+          })
+        : result,
+    );
   };
 
   searchCatalogueHandler = async (_req: Request, res: Response): Promise<void> => {
-    const input = res.locals.validated as SearchCatalogueDto;
+    const validated = res.locals.validatedBody as SearchCatalogueDto;
+    const input: SearchCatalogueDto = {
+      keyword: validated.keyword,
+      instrumentRef: validated.instrumentRef,
+    };
     const result = await this.searchCatalogue.execute(input);
-    sendResult(res, result);
+    sendResult(res, result.success ? Result.ok(result.data.map((provision) => provision.toPublic())) : result);
   };
 
   getFacetsHandler = async (_req: Request, res: Response): Promise<void> => {
@@ -54,13 +75,31 @@ export class CatalogueController {
   };
 
   listProvisionsHandler = async (_req: Request, res: Response): Promise<void> => {
-    const input = res.locals.validated as ListProvisionsDto;
+    const validated = res.locals.validatedBody as ListProvisionsDto;
+    const input: ListProvisionsDto = {
+      instrumentRef: validated.instrumentRef,
+      level: validated.level,
+      department: validated.department,
+      sortBy: validated.sortBy,
+      page: validated.page,
+      pageSize: validated.pageSize,
+    };
     const result = await this.listProvisions.execute(input);
-    sendResult(res, result);
+    sendResult(
+      res,
+      result.success
+        ? Result.ok({ items: result.data.items.map((provision) => provision.toPublic()), total: result.data.total })
+        : result,
+    );
   };
 
   semanticSearchHandler = async (_req: Request, res: Response): Promise<void> => {
-    const input = res.locals.validated as SemanticSearchDto;
+    const validated = res.locals.validatedBody as SemanticSearchDto;
+    const input: SemanticSearchDto = {
+      query: validated.query,
+      topK: validated.topK,
+      synthesize: validated.synthesize,
+    };
     const result = await this.semanticSearchProvisions.execute(input);
     sendResult(res, result);
   };

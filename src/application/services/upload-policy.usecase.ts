@@ -1,6 +1,6 @@
 import { Result } from "../../shared/result.js";
 import type { PolicyIntakeUploadResult, PolicyPipelineService } from "../../domain/ports/policy-pipeline-service.js";
-import type { UploadPolicyDto } from "../dtos/upload-policy.dto.js";
+import type { UploadPolicyDto } from "../../domain/types/upload-policy.js";
 
 export class UploadPolicyUseCase {
   constructor(private readonly pipeline: PolicyPipelineService) {}

@@ -3,7 +3,7 @@ import type { CoverageEdge } from "../../domain/types/coverage-edge.js";
 import type { CoverageReviewRepository } from "../../domain/repositories/coverage-review.repository.js";
 import type { CoverageEdgeNotFoundError } from "../../domain/errors/coverage-review.errors.js";
 import { resolveReviewTransition } from "../../domain/services/resolve-review-transition.js";
-import type { SubmitCoverageReviewDto } from "../dtos/submit-coverage-review.dto.js";
+import type { SubmitCoverageReviewDto } from "../../domain/types/submit-coverage-review.js";
 
 export class SubmitCoverageReviewUseCase {
   constructor(private readonly coverageReviews: CoverageReviewRepository) {}

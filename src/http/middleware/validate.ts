@@ -6,7 +6,7 @@ import { ValidationError } from "../../shared/errors.js";
 /**
  * Runs Zod validation before the controller is ever invoked, so a
  * controller/use-case downstream never sees raw, unvalidated req data -
- * res.locals.validated carries the parsed, typed result. Notification
+ * res.locals.validatedBody carries the parsed, typed result. Notification
  * pattern: every issue is collected, not just the first.
  *
  * `buildInput` lets a route assemble its candidate input from whatever mix
@@ -26,7 +26,7 @@ export function validate<T>(
       res.status(400).json({ error: error.kind, message: error.message });
       return;
     }
-    res.locals.validated = parsed.data;
+    res.locals.validatedBody = parsed.data;
     next();
   };
 }

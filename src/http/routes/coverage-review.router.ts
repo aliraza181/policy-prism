@@ -3,8 +3,8 @@ import { Router } from "express";
 import type { CoverageReviewController } from "../controllers/coverage-review.controller.js";
 import { asyncHandler } from "../middleware/async-handler.js";
 import { validate } from "../middleware/validate.js";
-import { getObligationCoverageSchema } from "../../application/dtos/get-obligation-coverage.dto.js";
-import { submitCoverageReviewSchema } from "../../application/dtos/submit-coverage-review.dto.js";
+import { getObligationCoverageSchema } from "../../domain/schemas/get-obligation-coverage.schema.js";
+import { submitCoverageReviewSchema } from "../../domain/schemas/submit-coverage-review.schema.js";
 
 export function coverageReviewRouter(controller: CoverageReviewController): Router {
   const router = Router();

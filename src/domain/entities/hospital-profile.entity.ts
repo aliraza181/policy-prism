@@ -39,8 +39,10 @@ export interface HospitalProfileProps {
   servicesAndCapabilities: ProfileFact[];
   unitsAndCareSettings: ProfileFact[];
   patientPopulationsAndServiceArea: ProfileFact[];
-  sourceScopeOverrides: unknown[];
+  sourceScopeOverrides: Record<string, unknown>[];
 }
+
+export type PublicHospitalProfile = HospitalProfileProps;
 
 export class HospitalProfile {
   private constructor(private readonly props: HospitalProfileProps) {}
@@ -83,11 +85,15 @@ export class HospitalProfile {
     return this.props.patientPopulationsAndServiceArea;
   }
 
-  get sourceScopeOverrides(): unknown[] {
+  get sourceScopeOverrides(): Record<string, unknown>[] {
     return this.props.sourceScopeOverrides;
   }
 
   toJSON(): HospitalProfileProps {
+    return { ...this.props };
+  }
+
+  toPublic(): PublicHospitalProfile {
     return { ...this.props };
   }
 }

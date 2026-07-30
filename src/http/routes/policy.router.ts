@@ -4,9 +4,9 @@ import multer from "multer";
 import type { PolicyController } from "../controllers/policy.controller.js";
 import { asyncHandler } from "../middleware/async-handler.js";
 import { validate } from "../middleware/validate.js";
-import { uploadPolicySchema } from "../../application/dtos/upload-policy.dto.js";
-import { getJobStatusSchema } from "../../application/dtos/get-job-status.dto.js";
-import { getPolicyDetailSchema } from "../../application/dtos/get-policy-detail.dto.js";
+import { uploadPolicySchema } from "../../domain/schemas/upload-policy.schema.js";
+import { getJobStatusSchema } from "../../domain/schemas/get-job-status.schema.js";
+import { getPolicyDetailSchema } from "../../domain/schemas/get-policy-detail.schema.js";
 
 const MAX_UPLOAD_BYTES = 20 * 1024 * 1024;
 

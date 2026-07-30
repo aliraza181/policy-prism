@@ -13,6 +13,14 @@ export interface NormativeStatementProps {
   provisionId: string;
 }
 
+// actorKind/sourceExcerpt/sourceStatementKind are extraction-pipeline
+// provenance fields, kept internally for audit/reprocessing but never
+// rendered - the public shape is what the catalogue/review UI actually uses.
+export type PublicNormativeStatement = Omit<
+  NormativeStatementProps,
+  "actorKind" | "sourceExcerpt" | "sourceStatementKind"
+>;
+
 export class NormativeStatement {
   private constructor(private readonly props: NormativeStatementProps) {}
 
@@ -45,5 +53,11 @@ export class NormativeStatement {
 
   toJSON(): NormativeStatementProps {
     return { ...this.props };
+  }
+
+  toPublic(): PublicNormativeStatement {
+    const { actorKind: _actorKind, sourceExcerpt: _sourceExcerpt, sourceStatementKind: _sourceStatementKind, ...publicProps } =
+      this.props;
+    return publicProps;
   }
 }

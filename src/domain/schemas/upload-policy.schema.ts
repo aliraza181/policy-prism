@@ -11,5 +11,3 @@ export const uploadPolicySchema = z.object({
   sizeBytes: z.number().int().positive().max(MAX_UPLOAD_BYTES),
   sourceUri: z.string().min(1).optional(),
 });
-
-export type UploadPolicyDto = z.infer<typeof uploadPolicySchema>;

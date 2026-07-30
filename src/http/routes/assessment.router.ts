@@ -3,9 +3,9 @@ import { Router } from "express";
 import type { AssessmentController } from "../controllers/assessment.controller.js";
 import { asyncHandler } from "../middleware/async-handler.js";
 import { validate } from "../middleware/validate.js";
-import { submitAssessmentRunSchema } from "../../application/dtos/submit-assessment-run.dto.js";
-import { getRunSchema } from "../../application/dtos/get-run.dto.js";
-import { listGapsSchema } from "../../application/dtos/list-gaps.dto.js";
+import { submitAssessmentRunSchema } from "../../domain/schemas/submit-assessment-run.schema.js";
+import { getRunSchema } from "../../domain/schemas/get-run.schema.js";
+import { listGapsSchema } from "../../domain/schemas/list-gaps.schema.js";
 
 export function assessmentRouter(controller: AssessmentController): Router {
   const router = Router();

@@ -5,7 +5,7 @@ import type { NormativeStatementRepository } from "../../domain/repositories/nor
 import type { Provision } from "../../domain/entities/provision.entity.js";
 import type { NormativeStatement } from "../../domain/entities/normative-statement.entity.js";
 import type { ProvisionReference } from "../../domain/types/provision-reference.js";
-import type { GetProvisionDetailDto } from "../dtos/get-provision-detail.dto.js";
+import type { GetProvisionDetailDto } from "../../domain/types/get-provision-detail.js";
 
 export interface ProvisionDetail {
   provision: Provision;
@@ -24,7 +24,7 @@ export class GetProvisionDetailUseCase {
   async execute(input: GetProvisionDetailDto): Promise<Result<ProvisionDetail, ProvisionNotFoundError>> {
     const { provisionId } = input;
     const found = await this.provisions.findById(provisionId);
-    if (found.isErr) {
+    if (!found.success) {
       return Result.err(found.error);
     }
 
@@ -35,6 +35,6 @@ export class GetProvisionDetailUseCase {
       this.provisions.findReferencedBy(provisionId),
     ]);
 
-    return Result.ok({ provision: found.value, parentChain, normativeStatements, references, referencedBy });
+    return Result.ok({ provision: found.data, parentChain, normativeStatements, references, referencedBy });
   }
 }

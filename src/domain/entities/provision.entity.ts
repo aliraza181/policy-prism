@@ -11,6 +11,10 @@ export interface ProvisionProps {
   orderIndex: number;
 }
 
+// rawText is the pre-cleanup pipeline artifact (header/footer noise, OCR
+// quirks) kept internally for reprocessing - only cleanText is fit to show.
+export type PublicProvision = Omit<ProvisionProps, "rawText">;
+
 export class Provision {
   private constructor(private readonly props: ProvisionProps) {}
 
@@ -58,5 +62,10 @@ export class Provision {
 
   toJSON(): ProvisionProps {
     return { ...this.props };
+  }
+
+  toPublic(): PublicProvision {
+    const { rawText: _rawText, ...publicProps } = this.props;
+    return publicProps;
   }
 }

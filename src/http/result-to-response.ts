@@ -9,8 +9,8 @@ const STATUS_BY_KIND: Record<string, number> = {
 };
 
 export function sendResult<T>(res: Response, result: Result<T, AppError>): void {
-  if (result.isOk) {
-    res.status(200).json(result.value);
+  if (result.success) {
+    res.status(200).json(result.data);
     return;
   }
   const status = STATUS_BY_KIND[result.error.kind] ?? 500;

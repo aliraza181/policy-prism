@@ -1,6 +1,6 @@
 import { Result } from "../../shared/result.js";
 import type { ProvisionListResult, ProvisionRepository } from "../../domain/repositories/provision.repository.js";
-import type { ListProvisionsDto } from "../dtos/list-provisions.dto.js";
+import type { ListProvisionsDto } from "../../domain/types/list-provisions.js";
 
 export class ListProvisionsUseCase {
   constructor(private readonly provisions: ProvisionRepository) {}
