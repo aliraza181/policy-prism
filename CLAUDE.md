@@ -32,3 +32,9 @@ See the README in each `src/*` folder for that layer's specific rules.
 - `domain/` never imports from `app/`, `infra/`, or `web/`.
 - Expected failures (not found, validation error, already exists) are
   returned as `Result.err(...)`, never thrown.
+
+## Development workflow
+
+This repo is part of the Policy Prism workspace (`../policyPrism/`). When
+developing features, follow the workflow in `../policyPrism/harness/workflow.md`.
+Feature specs are stored in `../policyPrism/harness/features/`.
