@@ -1,13 +1,13 @@
 import { Router } from "express";
 
-import type { CatalogueController } from "../controllers/catalogue.controller.js";
-import { asyncHandler } from "../middleware/async-handler.js";
-import { validate } from "../middleware/validate.js";
-import { browseProvisionTreeSchema } from "../../domain/schemas/browse-provision-tree.schema.js";
-import { getProvisionDetailSchema } from "../../domain/schemas/get-provision-detail.schema.js";
-import { searchCatalogueSchema } from "../../domain/schemas/search-catalogue.schema.js";
-import { semanticSearchSchema } from "../../domain/schemas/semantic-search.schema.js";
-import { listProvisionsSchema } from "../../domain/schemas/list-provisions.schema.js";
+import type { CatalogueController } from "../controllers/catalogue.controller.ts";
+import { asyncHandler } from "../middleware/async-handler.ts";
+import { validate } from "../middleware/validate.ts";
+import { browseProvisionTreeSchema } from "../../domain/schemas/browse-provision-tree.schema.ts";
+import { getProvisionDetailSchema } from "../../domain/schemas/get-provision-detail.schema.ts";
+import { searchCatalogueSchema } from "../../domain/schemas/search-catalogue.schema.ts";
+import { semanticSearchSchema } from "../../domain/schemas/semantic-search.schema.ts";
+import { listProvisionsSchema } from "../../domain/schemas/list-provisions.schema.ts";
 
 export function catalogueRouter(controller: CatalogueController): Router {
   const router = Router();

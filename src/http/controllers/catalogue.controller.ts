@@ -1,19 +1,19 @@
 import type { Request, Response } from "express";
 
-import type { ListInstrumentsUseCase } from "../../application/services/list-instruments.usecase.js";
-import type { BrowseProvisionTreeUseCase } from "../../application/services/browse-provision-tree.usecase.js";
-import type { GetProvisionDetailUseCase } from "../../application/services/get-provision-detail.usecase.js";
-import type { SearchCatalogueUseCase } from "../../application/services/search-catalogue.usecase.js";
-import type { GetFacetsUseCase } from "../../application/services/get-facets.usecase.js";
-import type { ListProvisionsUseCase } from "../../application/services/list-provisions.usecase.js";
-import type { SemanticSearchProvisionsUseCase } from "../../application/services/semantic-search-provisions.usecase.js";
-import type { BrowseProvisionTreeDto } from "../../domain/types/browse-provision-tree.js";
-import type { GetProvisionDetailDto } from "../../domain/types/get-provision-detail.js";
-import type { SearchCatalogueDto } from "../../domain/types/search-catalogue.js";
-import type { ListProvisionsDto } from "../../domain/types/list-provisions.js";
-import type { SemanticSearchDto } from "../../domain/types/semantic-search.js";
-import { Result } from "../../shared/result.js";
-import { sendResult } from "../result-to-response.js";
+import type { ListInstrumentsUseCase } from "../../application/services/list-instruments.usecase.ts";
+import type { BrowseProvisionTreeUseCase } from "../../application/services/browse-provision-tree.usecase.ts";
+import type { GetProvisionDetailUseCase } from "../../application/services/get-provision-detail.usecase.ts";
+import type { SearchCatalogueUseCase } from "../../application/services/search-catalogue.usecase.ts";
+import type { GetFacetsUseCase } from "../../application/services/get-facets.usecase.ts";
+import type { ListProvisionsUseCase } from "../../application/services/list-provisions.usecase.ts";
+import type { SemanticSearchProvisionsUseCase } from "../../application/services/semantic-search-provisions.usecase.ts";
+import type { BrowseProvisionTreeDto } from "../../domain/schemas/browse-provision-tree.schema.ts";
+import type { GetProvisionDetailDto } from "../../domain/schemas/get-provision-detail.schema.ts";
+import type { SearchCatalogueDto } from "../../domain/schemas/search-catalogue.schema.ts";
+import type { ListProvisionsDto } from "../../domain/schemas/list-provisions.schema.ts";
+import type { SemanticSearchDto } from "../../domain/schemas/semantic-search.schema.ts";
+import { Result } from "../../shared/result.ts";
+import { sendResult } from "../result-to-response.ts";
 
 export class CatalogueController {
   constructor(

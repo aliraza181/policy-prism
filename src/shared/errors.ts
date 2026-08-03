@@ -19,3 +19,27 @@ export class ValidationError extends AppError {
     super(`Validation failed: ${issues.join("; ")}`);
   }
 }
+
+export class ProvisionNotFoundError extends NotFoundError {
+  constructor(id: string) { super("Provision", id); }
+}
+
+export class PolicyNotFoundError extends NotFoundError {
+  constructor(id: string) { super("Policy", id); }
+}
+
+export class PolicyIntakeJobNotFoundError extends NotFoundError {
+  constructor(id: string) { super("PolicyIntakeJob", id); }
+}
+
+export class AssessmentRunNotFoundError extends NotFoundError {
+  constructor(id: string) { super("AssessmentRun", id); }
+}
+
+export class CoverageEdgeNotFoundError extends NotFoundError {
+  constructor(id: string) { super("CoverageEdge", id); }
+}
+
+export class NormativeStatementNotFoundError extends NotFoundError {
+  constructor(id: string) { super("NormativeStatement", id); }
+}

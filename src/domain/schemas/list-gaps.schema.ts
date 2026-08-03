@@ -5,3 +5,5 @@ export const listGapsSchema = z.object({
   gapType: z.string().min(1).optional(),
   tier1CriticalOnly: z.boolean().optional(),
 });
+
+export type ListGapsDto = z.infer<typeof listGapsSchema>;

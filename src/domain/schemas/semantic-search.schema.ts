@@ -11,3 +11,5 @@ export const semanticSearchSchema = z.object({
     .default("true")
     .transform((value) => value === "true"),
 });
+
+export type SemanticSearchDto = z.infer<typeof semanticSearchSchema>;

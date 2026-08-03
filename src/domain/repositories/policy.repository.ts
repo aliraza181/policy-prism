@@ -1,8 +1,8 @@
-import type { Result } from "../../shared/result.js";
-import type { Policy } from "../entities/policy.entity.js";
-import type { PolicySection } from "../types/policy-section.js";
-import type { CoverageEdge } from "../types/coverage-edge.js";
-import type { PolicyNotFoundError } from "../errors/policy.errors.js";
+import type { Result } from "../../shared/result.ts";
+import type { Policy } from "../entities/policy.entity.ts";
+import type { PolicySection } from "../types/policy-section.ts";
+import type { CoverageEdge } from "../types/coverage-edge.ts";
+import type { PolicyNotFoundError } from "../../shared/errors.ts";
 
 export interface PolicyRepository {
   findById(id: string): Promise<Result<Policy, PolicyNotFoundError>>;

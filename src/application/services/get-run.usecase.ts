@@ -1,8 +1,8 @@
-import type { Result } from "../../shared/result.js";
-import type { AssessmentRunNotFoundError } from "../../domain/errors/assessment.errors.js";
-import type { AssessmentRun } from "../../domain/types/assessment-run.js";
-import type { AssessmentRepository } from "../../domain/repositories/assessment.repository.js";
-import type { GetRunDto } from "../../domain/types/get-run.js";
+import type { Result } from "../../shared/result.ts";
+import type { AssessmentRunNotFoundError } from "../../shared/errors.ts";
+import type { AssessmentRun } from "../../domain/types/assessment-run.ts";
+import type { AssessmentRepository } from "../../domain/repositories/assessment.repository.ts";
+import type { GetRunDto } from "../../domain/schemas/get-run.schema.ts";
 
 export class GetRunUseCase {
   constructor(private readonly assessments: AssessmentRepository) {}

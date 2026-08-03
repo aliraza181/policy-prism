@@ -1,4 +1,4 @@
-import { DomainError } from "../errors/domain-error.js";
+import { DomainError } from "../errors/domain-error.ts";
 
 export interface RegulatoryInstrumentProps {
   id: string;

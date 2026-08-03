@@ -1,16 +1,16 @@
 import neo4j, { type Driver, type Record as Neo4jRecord, type RecordShape } from "neo4j-driver";
 
-import { Result } from "../../shared/result.js";
+import { Result } from "../../shared/result.ts";
 import type {
   CatalogueSearchQuery,
   ProvisionListQuery,
   ProvisionListResult,
   ProvisionRepository,
-} from "../../domain/repositories/provision.repository.js";
-import { Provision } from "../../domain/entities/provision.entity.js";
-import { ProvisionNotFoundError } from "../../domain/errors/provision.errors.js";
-import type { ProvisionReference } from "../../domain/types/provision-reference.js";
-import { withSession } from "../database/session.js";
+} from "../../domain/repositories/provision.repository.ts";
+import { Provision } from "../../domain/entities/provision.entity.ts";
+import { ProvisionNotFoundError } from "../../shared/errors.ts";
+import type { ProvisionReference } from "../../domain/types/provision-reference.ts";
+import { withSession } from "../database/session.ts";
 
 function toOrderIndex(value: unknown): number {
   return neo4j.isInt(value) ? value.toNumber() : ((value as number | null) ?? 0);

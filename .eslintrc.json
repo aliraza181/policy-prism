@@ -42,5 +42,5 @@
       "rules": { "no-restricted-imports": "off" }
     }
   ],
-  "ignorePatterns": ["dist", "node_modules"]
+  "ignorePatterns": ["dist", "node_modules", "tsup.config.ts"]
 }

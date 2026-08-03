@@ -1,10 +1,10 @@
-import { Result } from "../../shared/result.js";
-import type { PolicyNotFoundError } from "../../domain/errors/policy.errors.js";
-import type { Policy } from "../../domain/entities/policy.entity.js";
-import type { PolicySection } from "../../domain/types/policy-section.js";
-import type { CoverageEdge } from "../../domain/types/coverage-edge.js";
-import type { PolicyRepository } from "../../domain/repositories/policy.repository.js";
-import type { GetPolicyDetailDto } from "../../domain/types/get-policy-detail.js";
+import { Result } from "../../shared/result.ts";
+import type { PolicyNotFoundError } from "../../shared/errors.ts";
+import type { Policy } from "../../domain/entities/policy.entity.ts";
+import type { PolicySection } from "../../domain/types/policy-section.ts";
+import type { CoverageEdge } from "../../domain/types/coverage-edge.ts";
+import type { PolicyRepository } from "../../domain/repositories/policy.repository.ts";
+import type { GetPolicyDetailDto } from "../../domain/schemas/get-policy-detail.schema.ts";
 
 export interface PolicyDetail {
   policy: Policy;

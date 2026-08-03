@@ -1,7 +1,7 @@
-import type { Result } from "../../shared/result.js";
-import type { Provision } from "../entities/provision.entity.js";
-import type { ProvisionNotFoundError } from "../errors/provision.errors.js";
-import type { ProvisionReference } from "../types/provision-reference.js";
+import type { Result } from "../../shared/result.ts";
+import type { Provision } from "../entities/provision.entity.ts";
+import type { ProvisionNotFoundError } from "../../shared/errors.ts";
+import type { ProvisionReference } from "../types/provision-reference.ts";
 
 export interface CatalogueSearchQuery {
   keyword: string;

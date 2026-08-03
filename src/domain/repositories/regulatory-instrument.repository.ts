@@ -1,6 +1,6 @@
-import type { Result } from "../../shared/result.js";
-import type { NotFoundError } from "../../shared/errors.js";
-import type { RegulatoryInstrument } from "../entities/regulatory-instrument.entity.js";
+import type { Result } from "../../shared/result.ts";
+import type { NotFoundError } from "../../shared/errors.ts";
+import type { RegulatoryInstrument } from "../entities/regulatory-instrument.entity.ts";
 
 export interface RegulatoryInstrumentRepository {
   findAll(): Promise<RegulatoryInstrument[]>;

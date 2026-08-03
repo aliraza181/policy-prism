@@ -1,4 +1,4 @@
-import type { RagService, RagSearchResult } from "../../domain/ports/rag-service.js";
+import type { RagService, RagSearchResult } from "../../domain/ports/rag-service.ts";
 
 export interface HttpRagServiceConfig {
   baseUrl: string;

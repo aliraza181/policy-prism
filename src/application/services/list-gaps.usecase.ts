@@ -1,7 +1,7 @@
-import { Result } from "../../shared/result.js";
-import type { Gap } from "../../domain/types/gap.js";
-import type { AssessmentRepository } from "../../domain/repositories/assessment.repository.js";
-import type { ListGapsDto } from "../../domain/types/list-gaps.js";
+import { Result } from "../../shared/result.ts";
+import type { Gap } from "../../domain/types/gap.ts";
+import type { AssessmentRepository } from "../../domain/repositories/assessment.repository.ts";
+import type { ListGapsDto } from "../../domain/schemas/list-gaps.schema.ts";
 
 export class ListGapsUseCase {
   constructor(private readonly assessments: AssessmentRepository) {}

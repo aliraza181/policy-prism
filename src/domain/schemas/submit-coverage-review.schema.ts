@@ -31,3 +31,5 @@ export const submitCoverageReviewSchema = baseSchema.superRefine((value, ctx) =>
     });
   }
 });
+
+export type SubmitCoverageReviewDto = z.infer<typeof submitCoverageReviewSchema>;

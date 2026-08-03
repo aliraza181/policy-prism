@@ -1,8 +1,8 @@
 import type { Driver } from "neo4j-driver";
 
-import type { NormativeStatementRepository } from "../../domain/repositories/normative-statement.repository.js";
-import { NormativeStatement } from "../../domain/entities/normative-statement.entity.js";
-import { withSession } from "../database/session.js";
+import type { NormativeStatementRepository } from "../../domain/repositories/normative-statement.repository.ts";
+import { NormativeStatement } from "../../domain/entities/normative-statement.entity.ts";
+import { withSession } from "../database/session.ts";
 
 export class Neo4jNormativeStatementRepository implements NormativeStatementRepository {
   constructor(private readonly driver: Driver) {}

@@ -1,6 +1,6 @@
-import { Result } from "../../shared/result.js";
-import type { RagService, RagSearchResult } from "../../domain/ports/rag-service.js";
-import type { SemanticSearchDto } from "../../domain/types/semantic-search.js";
+import { Result } from "../../shared/result.ts";
+import type { RagService, RagSearchResult } from "../../domain/ports/rag-service.ts";
+import type { SemanticSearchDto } from "../../domain/schemas/semantic-search.schema.ts";
 
 export class SemanticSearchProvisionsUseCase {
   constructor(private readonly rag: RagService) {}

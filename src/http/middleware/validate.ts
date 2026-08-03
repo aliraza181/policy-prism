@@ -1,7 +1,7 @@
 import type { NextFunction, Request, RequestHandler, Response } from "express";
 import type { ZodType, ZodTypeDef } from "zod";
 
-import { ValidationError } from "../../shared/errors.js";
+import { ValidationError } from "../../shared/errors.ts";
 
 /**
  * Runs Zod validation before the controller is ever invoked, so a

@@ -1,6 +1,5 @@
 export interface AssessmentRun {
   id: string;
-  hospitalProfileId: string;
   runPurpose: string;
   status: string;
   gapCount: number | null;

@@ -1,5 +1,5 @@
-import type { MismatchReasonCategory } from "../types/coverage-edge.js";
-import type { ReviewVerdict } from "../repositories/coverage-review.repository.js";
+import type { MismatchReasonCategory } from "../types/coverage-edge.ts";
+import type { ReviewVerdict } from "../repositories/coverage-review.repository.ts";
 
 export interface ReviewTransition {
   /** null means "leave edge_type as the pipeline classified it". */

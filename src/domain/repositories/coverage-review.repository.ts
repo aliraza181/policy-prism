@@ -1,8 +1,7 @@
-import type { Result } from "../../shared/result.js";
-import type { CoverageEdge, MismatchReasonCategory } from "../types/coverage-edge.js";
-import type { NormativeStatementNotFoundError } from "../errors/normative-statement.errors.js";
-import type { CoverageEdgeNotFoundError } from "../errors/coverage-review.errors.js";
-import type { ObligationCoverageResult } from "../types/obligation-coverage-result.js";
+import type { Result } from "../../shared/result.ts";
+import type { CoverageEdge, MismatchReasonCategory } from "../types/coverage-edge.ts";
+import type { NormativeStatementNotFoundError, CoverageEdgeNotFoundError } from "../../shared/errors.ts";
+import type { ObligationCoverageResult } from "../types/obligation-coverage-result.ts";
 
 export type ReviewVerdict = "confirmed" | "flagged_mismatch" | "flagged_ambiguous";
 

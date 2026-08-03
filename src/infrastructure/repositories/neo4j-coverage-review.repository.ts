@@ -1,18 +1,17 @@
 import neo4j, { type Driver, type Record as Neo4jRecord, type RecordShape } from "neo4j-driver";
 
-import { Result } from "../../shared/result.js";
+import { Result } from "../../shared/result.ts";
 import type {
   CoverageReviewRepository,
   SubmitCoverageReviewInput,
-} from "../../domain/repositories/coverage-review.repository.js";
-import type { ObligationCoverageMapping } from "../../domain/types/obligation-coverage-mapping.js";
-import type { ObligationContext } from "../../domain/types/obligation-context.js";
-import type { ObligationCoverageResult } from "../../domain/types/obligation-coverage-result.js";
-import type { CoverageEdge } from "../../domain/types/coverage-edge.js";
-import { CoverageEdgeNotFoundError } from "../../domain/errors/coverage-review.errors.js";
-import { NormativeStatementNotFoundError } from "../../domain/errors/normative-statement.errors.js";
-import { toCoverageEdge } from "./neo4j-policy.repository.js";
-import { withSession } from "../database/session.js";
+} from "../../domain/repositories/coverage-review.repository.ts";
+import type { ObligationCoverageMapping } from "../../domain/types/obligation-coverage-mapping.ts";
+import type { ObligationContext } from "../../domain/types/obligation-context.ts";
+import type { ObligationCoverageResult } from "../../domain/types/obligation-coverage-result.ts";
+import type { CoverageEdge } from "../../domain/types/coverage-edge.ts";
+import { CoverageEdgeNotFoundError, NormativeStatementNotFoundError } from "../../shared/errors.ts";
+import { toCoverageEdge } from "./neo4j-policy.repository.ts";
+import { withSession } from "../database/session.ts";
 
 function toObligationCoverageMapping(record: Neo4jRecord<RecordShape>): ObligationCoverageMapping {
   return {
@@ -77,7 +76,7 @@ export class Neo4jCoverageReviewRepository implements CoverageReviewRepository {
 
       const mappingsResult = await session.run(
         `MATCH (p:Policy)-[:HAS_SECTION]->(s:PolicySection)-[c:COVERAGE]->(ns:NormativeStatement {id: $normativeStatementId})
-         RETURN ${COVERAGE_EDGE_RETURN}, p.id AS policyId, p.title AS policyTitle, s.clean_text AS sectionText
+         RETURN ${COVERAGE_EDGE_RETURN}, p.id AS policyId, p.title AS policyTitle, coalesce(s.display_text, s.clean_text) AS sectionText
          ORDER BY c.confidence DESC`,
         { normativeStatementId },
       );

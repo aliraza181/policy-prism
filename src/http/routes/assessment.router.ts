@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import type { AssessmentController } from "../controllers/assessment.controller.js";
-import { asyncHandler } from "../middleware/async-handler.js";
-import { validate } from "../middleware/validate.js";
-import { submitAssessmentRunSchema } from "../../domain/schemas/submit-assessment-run.schema.js";
-import { getRunSchema } from "../../domain/schemas/get-run.schema.js";
-import { listGapsSchema } from "../../domain/schemas/list-gaps.schema.js";
+import type { AssessmentController } from "../controllers/assessment.controller.ts";
+import { asyncHandler } from "../middleware/async-handler.ts";
+import { validate } from "../middleware/validate.ts";
+import { submitAssessmentRunSchema } from "../../domain/schemas/submit-assessment-run.schema.ts";
+import { getRunSchema } from "../../domain/schemas/get-run.schema.ts";
+import { listGapsSchema } from "../../domain/schemas/list-gaps.schema.ts";
 
 export function assessmentRouter(controller: AssessmentController): Router {
   const router = Router();

@@ -1,9 +1,9 @@
-import type { Result } from "../../shared/result.js";
-import type { CoverageEdge } from "../../domain/types/coverage-edge.js";
-import type { CoverageReviewRepository } from "../../domain/repositories/coverage-review.repository.js";
-import type { CoverageEdgeNotFoundError } from "../../domain/errors/coverage-review.errors.js";
-import { resolveReviewTransition } from "../../domain/services/resolve-review-transition.js";
-import type { SubmitCoverageReviewDto } from "../../domain/types/submit-coverage-review.js";
+import type { Result } from "../../shared/result.ts";
+import type { CoverageEdge } from "../../domain/types/coverage-edge.ts";
+import type { CoverageReviewRepository } from "../../domain/repositories/coverage-review.repository.ts";
+import type { CoverageEdgeNotFoundError } from "../../shared/errors.ts";
+import { resolveReviewTransition } from "../../domain/services/resolve-review-transition.ts";
+import type { SubmitCoverageReviewDto } from "../../domain/schemas/submit-coverage-review.schema.ts";
 
 export class SubmitCoverageReviewUseCase {
   constructor(private readonly coverageReviews: CoverageReviewRepository) {}

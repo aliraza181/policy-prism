@@ -1,11 +1,11 @@
 import neo4j, { type Driver, type Record as Neo4jRecord, type RecordShape } from "neo4j-driver";
 
-import { Result } from "../../shared/result.js";
-import type { AssessmentRepository, ListGapsQuery } from "../../domain/repositories/assessment.repository.js";
-import type { AssessmentRun } from "../../domain/types/assessment-run.js";
-import type { Gap } from "../../domain/types/gap.js";
-import { AssessmentRunNotFoundError } from "../../domain/errors/assessment.errors.js";
-import { withSession } from "../database/session.js";
+import { Result } from "../../shared/result.ts";
+import type { AssessmentRepository, ListGapsQuery } from "../../domain/repositories/assessment.repository.ts";
+import type { AssessmentRun } from "../../domain/types/assessment-run.ts";
+import type { Gap } from "../../domain/types/gap.ts";
+import { AssessmentRunNotFoundError } from "../../shared/errors.ts";
+import { withSession } from "../database/session.ts";
 
 function toNullableInt(value: unknown): number | null {
   if (value === null || value === undefined) {
@@ -28,7 +28,6 @@ function parseJsonProp<T>(value: unknown, fallback: T): T {
 function toAssessmentRun(record: Neo4jRecord<RecordShape>): AssessmentRun {
   return {
     id: record.get("id") as string,
-    hospitalProfileId: record.get("hospitalProfileId") as string,
     runPurpose: record.get("runPurpose") as string,
     status: record.get("status") as string,
     gapCount: toNullableInt(record.get("gapCount")),
@@ -64,7 +63,7 @@ export class Neo4jAssessmentRepository implements AssessmentRepository {
     return withSession(this.driver, async (session) => {
       const result = await session.run(
         `MATCH (r:AssessmentRun {id: $id})
-         RETURN r.id AS id, r.hospital_profile_id AS hospitalProfileId, r.run_purpose AS runPurpose,
+         RETURN r.id AS id, r.run_purpose AS runPurpose,
                 r.status AS status, r.gap_count AS gapCount, r.covered_count AS coveredCount,
                 r.run_started_at AS runStartedAt`,
         { id },

@@ -1,4 +1,4 @@
-import type { CoverageEdge } from "./coverage-edge.js";
+import type { CoverageEdge } from "./coverage-edge.ts";
 
 /**
  * A CoverageEdge, denormalized with the policy identity and the covering

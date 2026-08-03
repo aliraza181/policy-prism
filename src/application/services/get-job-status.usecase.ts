@@ -1,6 +1,6 @@
-import { Result } from "../../shared/result.js";
-import type { PolicyIntakeJobStatus, PolicyPipelineService } from "../../domain/ports/policy-pipeline-service.js";
-import type { GetJobStatusDto } from "../../domain/types/get-job-status.js";
+import { Result } from "../../shared/result.ts";
+import type { PolicyIntakeJobStatus, PolicyPipelineService } from "../../domain/ports/policy-pipeline-service.ts";
+import type { GetJobStatusDto } from "../../domain/schemas/get-job-status.schema.ts";
 
 export class GetJobStatusUseCase {
   constructor(private readonly pipeline: PolicyPipelineService) {}

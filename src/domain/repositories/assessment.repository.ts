@@ -1,7 +1,7 @@
-import type { Result } from "../../shared/result.js";
-import type { AssessmentRun } from "../types/assessment-run.js";
-import type { Gap } from "../types/gap.js";
-import type { AssessmentRunNotFoundError } from "../errors/assessment.errors.js";
+import type { Result } from "../../shared/result.ts";
+import type { AssessmentRun } from "../types/assessment-run.ts";
+import type { Gap } from "../types/gap.ts";
+import type { AssessmentRunNotFoundError } from "../../shared/errors.ts";
 
 export interface ListGapsQuery {
   runId: string;

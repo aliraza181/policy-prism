@@ -1,12 +1,12 @@
 import type { Request, Response } from "express";
 
-import type { SubmitAssessmentRunUseCase } from "../../application/services/submit-assessment-run.usecase.js";
-import type { GetRunUseCase } from "../../application/services/get-run.usecase.js";
-import type { ListGapsUseCase } from "../../application/services/list-gaps.usecase.js";
-import type { SubmitAssessmentRunDto } from "../../domain/types/submit-assessment-run.js";
-import type { GetRunDto } from "../../domain/types/get-run.js";
-import type { ListGapsDto } from "../../domain/types/list-gaps.js";
-import { sendResult } from "../result-to-response.js";
+import type { SubmitAssessmentRunUseCase } from "../../application/services/submit-assessment-run.usecase.ts";
+import type { GetRunUseCase } from "../../application/services/get-run.usecase.ts";
+import type { ListGapsUseCase } from "../../application/services/list-gaps.usecase.ts";
+import type { SubmitAssessmentRunDto } from "../../domain/schemas/submit-assessment-run.schema.ts";
+import type { GetRunDto } from "../../domain/schemas/get-run.schema.ts";
+import type { ListGapsDto } from "../../domain/schemas/list-gaps.schema.ts";
+import { sendResult } from "../result-to-response.ts";
 
 export class AssessmentController {
   constructor(
@@ -18,7 +18,6 @@ export class AssessmentController {
   submitRunHandler = async (_req: Request, res: Response): Promise<void> => {
     const validated = res.locals.validatedBody as SubmitAssessmentRunDto;
     const input: SubmitAssessmentRunDto = {
-      hospitalProfileId: validated.hospitalProfileId,
       instrument: validated.instrument,
       department: validated.department,
       purpose: validated.purpose,

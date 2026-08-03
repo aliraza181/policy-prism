@@ -1,24 +1,19 @@
 import express, { type Express, type NextFunction, type Request, type Response } from "express";
 import type { Driver } from "neo4j-driver";
 
-import type { Logger } from "../domain/ports/logger.js";
-import { healthRouter } from "./routes/health.route.js";
-import { catalogueRouter } from "./routes/catalogue.router.js";
-import type { CatalogueController } from "./controllers/catalogue.controller.js";
-import { hospitalProfileRouter } from "./routes/hospital-profile.router.js";
-import type { HospitalProfileController } from "./controllers/hospital-profile.controller.js";
-import { policyRouter } from "./routes/policy.router.js";
-import type { PolicyController } from "./controllers/policy.controller.js";
-import { assessmentRouter } from "./routes/assessment.router.js";
-import type { AssessmentController } from "./controllers/assessment.controller.js";
-import { coverageReviewRouter } from "./routes/coverage-review.router.js";
-import type { CoverageReviewController } from "./controllers/coverage-review.controller.js";
+import { healthRouter } from "./routes/health.route.ts";
+import { catalogueRouter } from "./routes/catalogue.router.ts";
+import type { CatalogueController } from "./controllers/catalogue.controller.ts";
+import { policyRouter } from "./routes/policy.router.ts";
+import type { PolicyController } from "./controllers/policy.controller.ts";
+import { assessmentRouter } from "./routes/assessment.router.ts";
+import type { AssessmentController } from "./controllers/assessment.controller.ts";
+import { coverageReviewRouter } from "./routes/coverage-review.router.ts";
+import type { CoverageReviewController } from "./controllers/coverage-review.controller.ts";
 
 export interface AppDeps {
   driver: Driver;
-  logger: Logger;
   catalogueController: CatalogueController;
-  hospitalProfileController: HospitalProfileController;
   policyController: PolicyController;
   assessmentController: AssessmentController;
   coverageReviewController: CoverageReviewController;
@@ -42,20 +37,19 @@ export function createApp(deps: AppDeps): Express {
   });
 
   app.use((req, _res, next) => {
-    deps.logger.info(`${req.method} ${req.path}`);
+    console.log(`${req.method} ${req.path}`);
     next();
   });
 
   app.use(healthRouter(deps.driver));
   app.use(catalogueRouter(deps.catalogueController));
-  app.use(hospitalProfileRouter(deps.hospitalProfileController));
   app.use(policyRouter(deps.policyController));
   app.use(assessmentRouter(deps.assessmentController));
   app.use(coverageReviewRouter(deps.coverageReviewController));
 
   app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
     const message = err instanceof Error ? err.message : "unknown error";
-    deps.logger.error("unhandled error", { message });
+    console.error("unhandled error", message);
     res.status(500).json({ error: "internal_error", message });
   });
 

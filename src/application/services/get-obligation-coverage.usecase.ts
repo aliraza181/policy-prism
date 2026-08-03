@@ -1,8 +1,8 @@
-import type { Result } from "../../shared/result.js";
-import type { CoverageReviewRepository } from "../../domain/repositories/coverage-review.repository.js";
-import type { ObligationCoverageResult } from "../../domain/types/obligation-coverage-result.js";
-import type { NormativeStatementNotFoundError } from "../../domain/errors/normative-statement.errors.js";
-import type { GetObligationCoverageDto } from "../../domain/types/get-obligation-coverage.js";
+import type { Result } from "../../shared/result.ts";
+import type { CoverageReviewRepository } from "../../domain/repositories/coverage-review.repository.ts";
+import type { ObligationCoverageResult } from "../../domain/types/obligation-coverage-result.ts";
+import type { NormativeStatementNotFoundError } from "../../shared/errors.ts";
+import type { GetObligationCoverageDto } from "../../domain/schemas/get-obligation-coverage.schema.ts";
 
 export class GetObligationCoverageUseCase {
   constructor(private readonly coverageReviews: CoverageReviewRepository) {}

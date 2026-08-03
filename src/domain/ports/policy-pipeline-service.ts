@@ -31,12 +31,9 @@ export interface AssessmentRunSubmission {
 export interface PolicyPipelineService {
   submitUpload(file: Buffer, fileName: string, contentType: string, sourceUri?: string): Promise<PolicyIntakeUploadResult>;
   getJobStatus(jobId: string): Promise<PolicyIntakeJobStatus>;
-  submitAssessmentRun(
-    hospitalProfileId: string,
-    options?: {
-      instrument?: string | undefined;
-      department?: string | undefined;
-      purpose?: string | undefined;
-    },
-  ): Promise<AssessmentRunSubmission>;
+  submitAssessmentRun(options?: {
+    instrument?: string | undefined;
+    department?: string | undefined;
+    purpose?: string | undefined;
+  }): Promise<AssessmentRunSubmission>;
 }

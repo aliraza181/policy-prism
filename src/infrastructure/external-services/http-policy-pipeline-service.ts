@@ -3,7 +3,7 @@ import type {
   PolicyIntakeJobStatus,
   PolicyIntakeUploadResult,
   PolicyPipelineService,
-} from "../../domain/ports/policy-pipeline-service.js";
+} from "../../domain/ports/policy-pipeline-service.ts";
 
 export interface HttpPolicyPipelineServiceConfig {
   baseUrl: string;
@@ -68,19 +68,15 @@ export class HttpPolicyPipelineService implements PolicyPipelineService {
     };
   }
 
-  async submitAssessmentRun(
-    hospitalProfileId: string,
-    options?: {
-      instrument?: string | undefined;
-      department?: string | undefined;
-      purpose?: string | undefined;
-    },
-  ): Promise<AssessmentRunSubmission> {
+  async submitAssessmentRun(options?: {
+    instrument?: string | undefined;
+    department?: string | undefined;
+    purpose?: string | undefined;
+  }): Promise<AssessmentRunSubmission> {
     const response = await fetch(new URL("/assessment/runs", this.config.baseUrl), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        hospitalProfileId,
         instrument: options?.instrument,
         department: options?.department,
         purpose: options?.purpose,

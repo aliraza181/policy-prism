@@ -1,14 +1,14 @@
 import type { Request, Response } from "express";
 
-import type { UploadPolicyUseCase } from "../../application/services/upload-policy.usecase.js";
-import type { GetJobStatusUseCase } from "../../application/services/get-job-status.usecase.js";
-import type { ListPoliciesUseCase } from "../../application/services/list-policies.usecase.js";
-import type { GetPolicyDetailUseCase } from "../../application/services/get-policy-detail.usecase.js";
-import type { UploadPolicyDto } from "../../domain/types/upload-policy.js";
-import type { GetJobStatusDto } from "../../domain/types/get-job-status.js";
-import type { GetPolicyDetailDto } from "../../domain/types/get-policy-detail.js";
-import { Result } from "../../shared/result.js";
-import { sendResult } from "../result-to-response.js";
+import type { UploadPolicyUseCase } from "../../application/services/upload-policy.usecase.ts";
+import type { GetJobStatusUseCase } from "../../application/services/get-job-status.usecase.ts";
+import type { ListPoliciesUseCase } from "../../application/services/list-policies.usecase.ts";
+import type { GetPolicyDetailUseCase } from "../../application/services/get-policy-detail.usecase.ts";
+import type { UploadPolicyDto } from "../../domain/schemas/upload-policy.schema.ts";
+import type { GetJobStatusDto } from "../../domain/schemas/get-job-status.schema.ts";
+import type { GetPolicyDetailDto } from "../../domain/schemas/get-policy-detail.schema.ts";
+import { Result } from "../../shared/result.ts";
+import { sendResult } from "../result-to-response.ts";
 
 export class PolicyController {
   constructor(

@@ -1,12 +1,12 @@
 import neo4j, { type Driver, type Record as Neo4jRecord, type RecordShape } from "neo4j-driver";
 
-import { Result } from "../../shared/result.js";
-import type { PolicyRepository } from "../../domain/repositories/policy.repository.js";
-import { Policy } from "../../domain/entities/policy.entity.js";
-import { PolicyNotFoundError } from "../../domain/errors/policy.errors.js";
-import type { PolicySection } from "../../domain/types/policy-section.js";
-import type { CoverageEdge } from "../../domain/types/coverage-edge.js";
-import { withSession } from "../database/session.js";
+import { Result } from "../../shared/result.ts";
+import type { PolicyRepository } from "../../domain/repositories/policy.repository.ts";
+import { Policy } from "../../domain/entities/policy.entity.ts";
+import { PolicyNotFoundError } from "../../shared/errors.ts";
+import type { PolicySection } from "../../domain/types/policy-section.ts";
+import type { CoverageEdge } from "../../domain/types/coverage-edge.ts";
+import { withSession } from "../database/session.ts";
 
 function toOrderIndex(value: unknown): number {
   return neo4j.isInt(value) ? value.toNumber() : ((value as number | null) ?? 0);
@@ -117,7 +117,7 @@ export class Neo4jPolicyRepository implements PolicyRepository {
          OPTIONAL MATCH (parent:PolicySection)-[:PARENT_OF]->(s)
          RETURN s.id AS id, $policyId AS policyId, s.section_ref AS sectionRef,
                 s.level AS level, parent.id AS parentId, s.raw_text AS rawText,
-                s.clean_text AS cleanText, s.order_index AS orderIndex
+                coalesce(s.display_text, s.clean_text) AS cleanText, s.order_index AS orderIndex
          ORDER BY s.order_index`,
         { policyId },
       );

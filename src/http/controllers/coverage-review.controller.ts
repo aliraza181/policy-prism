@@ -1,10 +1,10 @@
 import type { Request, Response } from "express";
 
-import type { GetObligationCoverageUseCase } from "../../application/services/get-obligation-coverage.usecase.js";
-import type { SubmitCoverageReviewUseCase } from "../../application/services/submit-coverage-review.usecase.js";
-import type { GetObligationCoverageDto } from "../../domain/types/get-obligation-coverage.js";
-import type { SubmitCoverageReviewDto } from "../../domain/types/submit-coverage-review.js";
-import { sendResult } from "../result-to-response.js";
+import type { GetObligationCoverageUseCase } from "../../application/services/get-obligation-coverage.usecase.ts";
+import type { SubmitCoverageReviewUseCase } from "../../application/services/submit-coverage-review.usecase.ts";
+import type { GetObligationCoverageDto } from "../../domain/schemas/get-obligation-coverage.schema.ts";
+import type { SubmitCoverageReviewDto } from "../../domain/schemas/submit-coverage-review.schema.ts";
+import { sendResult } from "../result-to-response.ts";
 
 export class CoverageReviewController {
   constructor(

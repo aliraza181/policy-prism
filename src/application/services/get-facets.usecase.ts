@@ -1,4 +1,4 @@
-import type { ProvisionRepository } from "../../domain/repositories/provision.repository.js";
+import type { ProvisionRepository } from "../../domain/repositories/provision.repository.ts";
 
 export interface CatalogueFacets {
   byInstrument: Array<{ instrumentRef: string; count: number }>;

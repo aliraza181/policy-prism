@@ -1,5 +1,5 @@
-import type { Policy } from "../../domain/entities/policy.entity.js";
-import type { PolicyRepository } from "../../domain/repositories/policy.repository.js";
+import type { Policy } from "../../domain/entities/policy.entity.ts";
+import type { PolicyRepository } from "../../domain/repositories/policy.repository.ts";
 
 export class ListPoliciesUseCase {
   constructor(private readonly policies: PolicyRepository) {}

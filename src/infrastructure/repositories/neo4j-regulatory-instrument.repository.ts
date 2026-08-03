@@ -1,10 +1,10 @@
 import type { Driver } from "neo4j-driver";
 
-import { Result } from "../../shared/result.js";
-import { NotFoundError } from "../../shared/errors.js";
-import type { RegulatoryInstrumentRepository } from "../../domain/repositories/regulatory-instrument.repository.js";
-import { RegulatoryInstrument } from "../../domain/entities/regulatory-instrument.entity.js";
-import { withSession } from "../database/session.js";
+import { Result } from "../../shared/result.ts";
+import { NotFoundError } from "../../shared/errors.ts";
+import type { RegulatoryInstrumentRepository } from "../../domain/repositories/regulatory-instrument.repository.ts";
+import { RegulatoryInstrument } from "../../domain/entities/regulatory-instrument.entity.ts";
+import { withSession } from "../database/session.ts";
 
 export class Neo4jRegulatoryInstrumentRepository implements RegulatoryInstrumentRepository {
   constructor(private readonly driver: Driver) {}

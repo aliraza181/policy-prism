@@ -1,7 +1,7 @@
 import type { Response } from "express";
 
-import type { Result } from "../shared/result.js";
-import type { AppError } from "../shared/errors.js";
+import type { Result } from "../shared/result.ts";
+import type { AppError } from "../shared/errors.ts";
 
 const STATUS_BY_KIND: Record<string, number> = {
   not_found: 404,
