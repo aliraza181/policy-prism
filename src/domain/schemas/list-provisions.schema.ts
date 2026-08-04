@@ -13,9 +13,8 @@ export const listProvisionsSchema = z.object({
   instrumentRef: multiValue,
   level: z.string().min(1).optional(),
   department: multiValue,
-  sortBy: z.enum(["document", "citation", "level"]).default("document"),
+  includeRetired: z.coerce.boolean().default(false),
+  sortBy: z.enum(["document", "citation", "level", "department"]).default("document"),
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 });
-
-export type ListProvisionsDto = z.infer<typeof listProvisionsSchema>;

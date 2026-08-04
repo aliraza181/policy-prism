@@ -5,7 +5,9 @@ export interface PolicyProps {
   title: string;
   formatType: string;
   sourceUri: string;
+  hospitalProfileId: string | null;
   department: string | null;
+  owner: string | null;
   policyNumber: string | null;
   effectiveDate: string | null;
   nextReviewDate: string | null;
@@ -49,8 +51,16 @@ export class Policy {
     return this.props.sourceUri;
   }
 
+  get hospitalProfileId(): string | null {
+    return this.props.hospitalProfileId;
+  }
+
   get department(): string | null {
     return this.props.department;
+  }
+
+  get owner(): string | null {
+    return this.props.owner;
   }
 
   get policyNumber(): string | null {

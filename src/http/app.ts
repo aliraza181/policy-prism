@@ -1,6 +1,7 @@
 import express, { type Express, type NextFunction, type Request, type Response } from "express";
 import type { Driver } from "neo4j-driver";
 
+import { ValidationError } from "../shared/errors.ts";
 import { healthRouter } from "./routes/health.route.ts";
 import { catalogueRouter } from "./routes/catalogue.router.ts";
 import type { CatalogueController } from "./controllers/catalogue.controller.ts";
@@ -10,6 +11,8 @@ import { assessmentRouter } from "./routes/assessment.router.ts";
 import type { AssessmentController } from "./controllers/assessment.controller.ts";
 import { coverageReviewRouter } from "./routes/coverage-review.router.ts";
 import type { CoverageReviewController } from "./controllers/coverage-review.controller.ts";
+import { hospitalProfileRouter } from "./routes/hospital-profile.router.ts";
+import type { HospitalProfileController } from "./controllers/hospital-profile.controller.ts";
 
 export interface AppDeps {
   driver: Driver;
@@ -17,6 +20,7 @@ export interface AppDeps {
   policyController: PolicyController;
   assessmentController: AssessmentController;
   coverageReviewController: CoverageReviewController;
+  hospitalProfileController: HospitalProfileController;
   frontendOrigin: string;
 }
 
@@ -46,8 +50,13 @@ export function createApp(deps: AppDeps): Express {
   app.use(policyRouter(deps.policyController));
   app.use(assessmentRouter(deps.assessmentController));
   app.use(coverageReviewRouter(deps.coverageReviewController));
+  app.use(hospitalProfileRouter(deps.hospitalProfileController));
 
   app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
+    if (err instanceof ValidationError) {
+      res.status(400).json({ error: err.kind, message: err.message });
+      return;
+    }
     const message = err instanceof Error ? err.message : "unknown error";
     console.error("unhandled error", message);
     res.status(500).json({ error: "internal_error", message });

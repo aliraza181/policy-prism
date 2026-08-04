@@ -1,5 +1,5 @@
 import type { MismatchReasonCategory } from "../types/coverage-edge.ts";
-import type { ReviewVerdict } from "../repositories/coverage-review.repository.ts";
+import type { ReviewVerdict } from "../../infrastructure/repositories/neo4j-coverage-review/ICoverageReview.repository.ts";
 
 export interface ReviewTransition {
   /** null means "leave edge_type as the pipeline classified it". */

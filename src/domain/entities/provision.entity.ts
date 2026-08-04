@@ -9,6 +9,10 @@ export interface ProvisionProps {
   rawText: string;
   cleanText: string;
   orderIndex: number;
+  departments: string[];
+  hasOwnContent: boolean | null;
+  active: boolean;
+  retiredAt: string | null;
 }
 
 // rawText is the pre-cleanup pipeline artifact (header/footer noise, OCR
@@ -58,6 +62,22 @@ export class Provision {
 
   get orderIndex(): number {
     return this.props.orderIndex;
+  }
+
+  get departments(): string[] {
+    return this.props.departments;
+  }
+
+  get hasOwnContent(): boolean | null {
+    return this.props.hasOwnContent;
+  }
+
+  get active(): boolean {
+    return this.props.active;
+  }
+
+  get retiredAt(): string | null {
+    return this.props.retiredAt;
   }
 
   toJSON(): ProvisionProps {

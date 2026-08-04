@@ -1,5 +1,7 @@
 export interface Gap {
   id: string;
+  obligationId: string;
+  obligationTitle: string | null;
   normativeStatementId: string;
   normativeStatementText: string;
   citationLabel: string;
@@ -14,4 +16,8 @@ export interface Gap {
   ownerRole: string;
   ownerReroutesToOnAssessment: string | null;
   rationale: string;
+  coveringPolicyId: string | null;
+  coveringPolicyTitle: string | null;
+  coveringSectionId: string | null;
+  coveringSectionRef: string | null;
 }

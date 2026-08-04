@@ -3,10 +3,6 @@ import multer from "multer";
 
 import type { PolicyController } from "../controllers/policy.controller.ts";
 import { asyncHandler } from "../middleware/async-handler.ts";
-import { validate } from "../middleware/validate.ts";
-import { uploadPolicySchema } from "../../domain/schemas/upload-policy.schema.ts";
-import { getJobStatusSchema } from "../../domain/schemas/get-job-status.schema.ts";
-import { getPolicyDetailSchema } from "../../domain/schemas/get-policy-detail.schema.ts";
 
 const MAX_UPLOAD_BYTES = 20 * 1024 * 1024;
 
@@ -25,38 +21,15 @@ const upload = multer({
 export function policyRouter(controller: PolicyController): Router {
   const router = Router();
 
-  router.post(
-    "/policies/upload",
-    upload.single("file"),
-    // multer runs first, so req.file is already populated by the time this
-    // builds the candidate input - a missing file fails validation here
-    // (fileName required) rather than needing a separate manual check.
-    validate(uploadPolicySchema, (req) => {
-      const file = req.file;
-      const body = req.body as { sourceUri?: unknown };
-      return {
-        fileName: file?.originalname,
-        contentType: file?.mimetype,
-        sizeBytes: file?.size,
-        sourceUri: typeof body.sourceUri === "string" ? body.sourceUri : undefined,
-      };
-    }),
-    asyncHandler(controller.uploadHandler),
-  );
+  router.post("/policies/upload", upload.single("file"), asyncHandler(controller.uploadHandler));
+
+  router.post("/policies/author", asyncHandler(controller.authorHandler));
 
   router.get("/policies", asyncHandler(controller.listPoliciesHandler));
 
-  router.get(
-    "/policies/:policyId",
-    validate(getPolicyDetailSchema, (req) => ({ policyId: req.params.policyId })),
-    asyncHandler(controller.getPolicyDetailHandler),
-  );
+  router.get("/policies/:policyId", asyncHandler(controller.getPolicyDetailHandler));
 
-  router.get(
-    "/jobs/:jobId",
-    validate(getJobStatusSchema, (req) => ({ jobId: req.params.jobId })),
-    asyncHandler(controller.getJobStatusHandler),
-  );
+  router.get("/jobs/:jobId", asyncHandler(controller.getJobStatusHandler));
 
   return router;
 }

@@ -43,3 +43,11 @@ export class CoverageEdgeNotFoundError extends NotFoundError {
 export class NormativeStatementNotFoundError extends NotFoundError {
   constructor(id: string) { super("NormativeStatement", id); }
 }
+
+export class HospitalProfileNotFoundError extends NotFoundError {
+  constructor(id: string) { super("HospitalProfile", id); }
+}
+
+export class ObligationNotFoundError extends NotFoundError {
+  constructor(id: string) { super("Obligation", id); }
+}
